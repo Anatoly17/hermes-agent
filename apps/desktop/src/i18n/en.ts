@@ -1728,6 +1728,45 @@ export const en: Translations = {
     }
   },
 
+  intro: {
+    fallbackCopy: [
+      {
+        headline: 'What are we moving today?',
+        body: "Send a bug, branch, plan, or rough idea. I'll inspect the repo and turn it into the next concrete step."
+      },
+      {
+        headline: "What's on your mind?",
+        body: "Bring the code, question, or stuck part. I'll read the room before making changes."
+      },
+      {
+        headline: 'What should Hermes look at?',
+        body: "Send the task, failing path, or half-formed plan. I'll help turn it into action."
+      },
+      {
+        headline: 'Where should we start?',
+        body: "Bring the problem, goal, or file. I'll inspect first and keep the next step concrete."
+      },
+      {
+        headline: 'What needs attention?',
+        body: "Send the context you have. I'll help sort it into a plan or a fix."
+      }
+    ],
+    fallbackTemplates: {
+      modeOnHeadline: label => `${label} mode is on. What should we work on?`,
+      modeOnBody:
+        "Send the task, file, or rough idea. I'll use your configured voice and keep the work grounded in this repo.",
+      needSeeHeadline: label => `What does ${label} Hermes need to see?`,
+      needSeeBody: "Bring the context or the stuck part. I'll adapt to your configured personality.",
+      readyHeadline: label => `${label} mode is ready.`,
+      readyBody: "Send the problem, file, or idea. I'll follow the personality you've configured.",
+      tackleHeadline: label => `What should ${label} Hermes tackle?`,
+      tackleBody: "Drop the task here. I'll keep the work grounded in the repo.",
+      beginHeadline: 'Where should we begin?',
+      beginBody: label => `Give me the context and I'll answer in ${label} mode.`
+    },
+    copy: {}
+  },
+
   statusStack: {
     agents: 'Agents',
     background: count => `${count} Background`,

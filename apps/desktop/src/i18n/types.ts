@@ -47,6 +47,11 @@ interface AuxTaskCopy {
   hint: string
 }
 
+export interface IntroCopy {
+  headline: string
+  body: string
+}
+
 export interface Translations {
   common: {
     apply: string
@@ -1408,6 +1413,23 @@ export interface Translations {
     snippets: Record<string, { label: string; description: string; text: string }>
     dropFiles: string
     dropSession: string
+  }
+
+  intro?: {
+    fallbackCopy: readonly IntroCopy[]
+    fallbackTemplates: {
+      modeOnHeadline: (label: string) => string
+      modeOnBody: string
+      needSeeHeadline: (label: string) => string
+      needSeeBody: string
+      readyHeadline: (label: string) => string
+      readyBody: string
+      tackleHeadline: (label: string) => string
+      tackleBody: string
+      beginHeadline: string
+      beginBody: (label: string) => string
+    }
+    copy: Record<string, readonly IntroCopy[]>
   }
 
   statusStack: {
