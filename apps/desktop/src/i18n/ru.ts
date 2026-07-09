@@ -47,7 +47,9 @@ export const ru = defineLocale({
     docs: 'Документация',
     done: 'Готово',
     error: 'Ошибка',
+    expand: 'Развернуть',
     failed: 'Ошибка',
+    formatJson: 'Форматировать JSON',
     free: 'Бесплатно',
     loading: 'Загрузка…',
     notSet: 'Не задано',
@@ -60,8 +62,25 @@ export const ru = defineLocale({
     set: 'Задать',
     skip: 'Пропустить',
     update: 'Обновить',
+    tryHint: term => `Попробуйте «${term}»`,
     on: 'Вкл',
     off: 'Выкл'
+  },
+
+  fileMenu: {
+    revealFinder: 'Показать в Finder',
+    revealExplorer: 'Показать в Проводнике',
+    revealFileManager: 'Открыть папку с файлом',
+    revealInSidebar: 'Показать в дереве файлов',
+    copyPath: 'Копировать путь',
+    copyRelativePath: 'Копировать относительный путь',
+    rename: 'Переименовать…',
+    delete: 'Удалить',
+    renameTitle: 'Переименовать',
+    renameLabel: 'Новое имя',
+    deleteTitle: name => `Удалить «${name}»?`,
+    deleteBody: 'Файл будет перемещён в корзину — его можно будет восстановить оттуда.',
+    pathCopied: 'Путь скопирован'
   },
 
   boot: {
@@ -79,6 +98,7 @@ export const ru = defineLocale({
       backgroundExitedDuringStartup: 'Фоновый процесс Hermes завершился во время запуска.',
       backendStopped: 'Бэкенд остановлен',
       desktopBootFailed: 'Ошибка запуска',
+      gatewayConnectionLost: 'Соединение со шлюзом потеряно',
       gatewaySignInRequired: 'Требуется вход в шлюз',
       ipcBridgeUnavailable: 'IPC-мост недоступен.'
     },
@@ -121,6 +141,7 @@ export const ru = defineLocale({
     backendOutOfDateTitle: 'Бэкенд устарел',
     backendOutOfDateMessage:
       'Ваш бэкенд Hermes старше, чем эта сборка desktop, и может работать некорректно. Обновите их до совместимых версий.',
+    installMethodUnsupportedTitle: 'Способ установки не поддерживается',
     updateHermes: 'Обновить Hermes',
     updateReadyTitle: 'Обновление готово',
     updateReadyMessage: count => `Доступно ${countRu(count, 'изменение', 'изменения', 'изменений')}.`,
@@ -168,6 +189,11 @@ export const ru = defineLocale({
     }
   },
 
+  remoteDisplayBanner: {
+    message: reason =>
+      `Включён программный рендеринг — обнаружен удалённый дисплей (${reason}). Аппаратное ускорение отключено, чтобы избежать мерцания.`
+  },
+
   titlebar: {
     hideSidebar: 'Скрыть боковую панель',
     showSidebar: 'Показать боковую панель',
@@ -180,6 +206,7 @@ export const ru = defineLocale({
     muteHaptics: 'Отключить тактильный отклик',
     unmuteHaptics: 'Включить тактильный отклик',
     openSettings: 'Открыть настройки',
+    openStarmap: 'Открыть граф памяти',
     openKeybinds: 'Горячие клавиши'
   },
 
@@ -211,6 +238,7 @@ export const ru = defineLocale({
       'nav.cron': 'Открыть расписание',
       'nav.agents': 'Открыть агентов',
       'session.new': 'Новая сессия',
+      'session.newWindow': 'Новая сессия в окне',
       'session.next': 'Следующая сессия',
       'session.prev': 'Предыдущая сессия',
       'session.slot.1': 'Переключиться на сессию 1',
@@ -224,12 +252,19 @@ export const ru = defineLocale({
       'session.slot.9': 'Переключиться на сессию 9',
       'session.focusSearch': 'Поиск сессий',
       'session.togglePin': 'Закрепить / открепить сессию',
+      'workspace.newWorktree': 'Новый worktree',
       'composer.focus': 'Фокус на редакторе',
       'composer.modelPicker': 'Выбор модели',
+      'composer.voice': 'Начать / остановить голосовой разговор',
       'view.toggleSidebar': 'Боковая панель сессий',
       'view.toggleRightSidebar': 'Файловый браузер',
+      'view.toggleReview': 'Панель ревью',
       'view.showFiles': 'Показать файлы',
       'view.showTerminal': 'Показать терминал',
+      'view.newTerminal': 'Новый терминал',
+      'view.nextTerminal': 'Следующий терминал',
+      'view.prevTerminal': 'Предыдущий терминал',
+      'view.closeTerminal': 'Закрыть терминал',
       'view.terminalSelection': 'Отправить выделение в редактор',
       'view.closePreviewTab': 'Закрыть вкладку предпросмотра',
       'view.flipPanes': 'Поменять стороны панелей',
@@ -369,8 +404,18 @@ export const ru = defineLocale({
       colorModeDesc: 'Выберите фиксированный режим или следуйте системным настройкам.',
       toolViewTitle: 'Отображение вызовов инструментов',
       toolViewDesc: 'В удобном режиме необработанные данные инструментов скрыты; технический режим показывает полный ввод и вывод.',
+      uiScaleTitle: 'Масштаб интерфейса',
+      uiScaleDesc: percent =>
+        `Меняет размер текста и элементов управления во всём приложении. Также работают Cmd/Ctrl с +, - и 0. Сейчас: ${percent}%.`,
       translucencyTitle: 'Прозрачность окна',
       translucencyDesc: 'Рабочий стол просвечивает через окно. Только macOS и Windows.',
+      embedsTitle: 'Встроенные предпросмотры',
+      embedsDesc:
+        'Расширенные предпросмотры загружаются со сторонних сайтов (YouTube, X и т.д.). «Спрашивать» показывает заглушку до вашего разрешения; «Всегда» загружает их автоматически; «Выкл» оставляет обычные ссылки.',
+      embedsAsk: 'Спрашивать',
+      embedsAlways: 'Всегда',
+      embedsOff: 'Выкл',
+      embedsReset: count => `Сбросить ${countRu(count, 'разрешённый сервис', 'разрешённых сервиса', 'разрешённых сервисов')}`,
       product: 'Удобный',
       productDesc: 'Понятные сводки действий инструментов без лишних технических деталей.',
       technical: 'Технический',
@@ -387,7 +432,172 @@ export const ru = defineLocale({
       installError: 'Не удалось установить тему.',
       installed: name => `Установлена «${name}».`,
       removeTheme: 'Удалить тему',
-      importedBadge: 'Импортирована'
+      importedBadge: 'Импортирована',
+      pet: {
+        title: 'Питомец',
+        intro:
+          'Добавьте анимированного маскота из petdex: он плавает поверх приложения и реагирует на работу Hermes — двигается во время выполнения инструментов, радуется успехам и грустит при ошибках.',
+        restartHint:
+          'Для питомцев нужен быстрый перезапуск: приложение было открыто до добавления этой функции. Закройте и снова откройте Hermes, затем вернитесь сюда.',
+        on: 'Вкл',
+        off: 'Выкл',
+        scaleTitle: 'Размер',
+        scaleDesc: 'Изменяет размер плавающего маскота. Применяется сразу во всём интерфейсе.',
+        roamTitle: 'Свободное движение',
+        roamDesc: 'Разрешить питомцу самостоятельно перемещаться по окну, когда он бездействует.',
+        chooseTitle: 'Выбрать питомца',
+        chooseDesc: 'Выбранный питомец будет установлен при необходимости и станет активным.',
+        searchPlaceholder: 'Поиск питомцев…',
+        unreachable: 'Не удалось открыть галерею petdex. Проверьте соединение и откройте страницу снова.',
+        noMatch: query => `Питомцев по запросу «${query}» не найдено.`,
+        installedTag: 'установлен',
+        generatedTag: 'Сгенерирован',
+        countCapped: (cap, total) => `Показано ${cap} из ${total} — уточните запрос, чтобы сузить список.`,
+        count: n => countRu(n, 'питомец', 'питомца', 'питомцев'),
+        uninstall: name => `Удалить ${name}`,
+        delete: name => `Удалить ${name}`,
+        deleteTitle: name => `Удалить ${name}?`,
+        deleteBody: 'Питомец будет удалён навсегда — переустановить его уже не получится.',
+        deleteConfirm: 'Удалить',
+        rename: name => `Переименовать ${name}`,
+        renameTitle: 'Переименовать питомца',
+        renamePlaceholder: 'Назовите питомца',
+        renameSave: 'Сохранить',
+        exportPet: name => `Экспортировать ${name}`,
+        adoptFailed: slug => `Не удалось добавить ${slug}`,
+        uninstallFailed: slug => `Не удалось удалить ${slug}`,
+        renameFailed: slug => `Не удалось переименовать ${slug}`,
+        exportFailed: slug => `Не удалось экспортировать ${slug}`,
+        noneAvailable: 'Сейчас нет питомцев, которых можно включить.',
+        turnOnFailed: 'Не удалось включить питомца.',
+        turnOffFailed: 'Не удалось выключить питомца.'
+      }
+    },
+    fieldLabels: {
+      model: 'Модель по умолчанию',
+      modelContextLength: 'Окно контекста',
+      fallbackProviders: 'Резервные модели',
+      toolsets: 'Включённые инструменты',
+      timezone: 'Часовой пояс',
+      'display.personality': 'Стиль общения',
+      'display.showReasoning': 'Блоки рассуждений',
+      'agent.maxTurns': 'Максимум шагов агента',
+      'agent.imageInputMode': 'Вложения-изображения',
+      'agent.apiMaxRetries': 'Повторы API-запросов',
+      'agent.serviceTier': 'Уровень сервиса',
+      'agent.toolUseEnforcement': 'Контроль вызовов инструментов',
+      'terminal.cwd': 'Рабочая директория',
+      'terminal.backend': 'Бэкенд выполнения',
+      'terminal.timeout': 'Тайм-аут команды',
+      'terminal.persistentShell': 'Постоянная shell-сессия',
+      'terminal.envPassthrough': 'Проброс переменных окружения',
+      'terminal.dockerImage': 'Образ Docker',
+      'terminal.singularityImage': 'Образ Singularity',
+      'terminal.modalImage': 'Образ Modal',
+      'terminal.daytonaImage': 'Образ Daytona',
+      fileReadMaxChars: 'Лимит чтения файла',
+      'toolOutput.maxBytes': 'Лимит вывода терминала',
+      'toolOutput.maxLines': 'Лимит страницы файла',
+      'toolOutput.maxLineLength': 'Лимит длины строки',
+      'codeExecution.mode': 'Режим выполнения кода',
+      'approvals.mode': 'Режим подтверждений',
+      'approvals.timeout': 'Тайм-аут подтверждения',
+      'approvals.mcpReloadConfirm': 'Подтверждать перезагрузку MCP',
+      commandAllowlist: 'Разрешённые команды',
+      'security.redactSecrets': 'Редактировать секреты',
+      'security.allowPrivateUrls': 'Разрешить приватные URL',
+      'browser.allowPrivateUrls': 'Приватные URL в браузере',
+      'browser.autoLocalForPrivateUrls': 'Локальный браузер для приватных URL',
+      'checkpoints.enabled': 'Контрольные точки файлов',
+      'checkpoints.maxSnapshots': 'Лимит контрольных точек',
+      'voice.recordKey': 'Горячая клавиша голоса',
+      'voice.maxRecordingSeconds': 'Максимальная длина записи',
+      'voice.autoTts': 'Озвучивать ответы',
+      'stt.enabled': 'Распознавание речи',
+      'stt.echoTranscripts': 'Показывать транскрипты',
+      'stt.provider': 'Провайдер распознавания речи',
+      'stt.local.model': 'Локальная модель распознавания',
+      'stt.local.language': 'Язык распознавания',
+      'stt.openai.model': 'Модель OpenAI STT',
+      'stt.groq.model': 'Модель Groq STT',
+      'stt.mistral.model': 'Модель Mistral STT',
+      'stt.elevenlabs.modelId': 'Модель ElevenLabs STT',
+      'stt.elevenlabs.languageCode': 'Язык ElevenLabs',
+      'stt.elevenlabs.tagAudioEvents': 'Помечать звуковые события',
+      'stt.elevenlabs.diarize': 'Разделение по говорящим',
+      'tts.provider': 'Провайдер синтеза речи',
+      'tts.edge.voice': 'Голос Edge',
+      'tts.openai.model': 'Модель OpenAI TTS',
+      'tts.openai.voice': 'Голос OpenAI',
+      'tts.elevenlabs.voiceId': 'Голос ElevenLabs',
+      'tts.elevenlabs.modelId': 'Модель ElevenLabs',
+      'tts.xai.voiceId': 'Голос xAI (Grok)',
+      'tts.xai.language': 'Язык xAI',
+      'tts.minimax.model': 'Модель MiniMax TTS',
+      'tts.minimax.voiceId': 'Голос MiniMax',
+      'tts.mistral.model': 'Модель Mistral TTS',
+      'tts.mistral.voiceId': 'Голос Mistral',
+      'tts.gemini.model': 'Модель Gemini TTS',
+      'tts.gemini.voice': 'Голос Gemini',
+      'tts.neutts.model': 'Модель NeuTTS',
+      'tts.neutts.device': 'Устройство NeuTTS',
+      'tts.kittentts.model': 'Модель KittenTTS',
+      'tts.kittentts.voice': 'Голос KittenTTS',
+      'tts.piper.voice': 'Голос Piper',
+      'memory.memoryEnabled': 'Постоянная память',
+      'memory.userProfileEnabled': 'Профиль пользователя',
+      'memory.memoryCharLimit': 'Лимит памяти',
+      'memory.userCharLimit': 'Лимит профиля',
+      'memory.provider': 'Провайдер памяти',
+      'context.engine': 'Механизм контекста',
+      'compression.enabled': 'Автосжатие',
+      'compression.threshold': 'Порог сжатия',
+      'compression.targetRatio': 'Целевой коэффициент сжатия',
+      'compression.protectLastN': 'Защищённые последние сообщения',
+      'delegation.model': 'Модель подагента',
+      'delegation.provider': 'Провайдер подагента',
+      'delegation.maxIterations': 'Лимит ходов подагента',
+      'delegation.maxConcurrentChildren': 'Параллельные подагенты',
+      'delegation.childTimeoutSeconds': 'Тайм-аут подагента',
+      'delegation.reasoningEffort': 'Уровень рассуждений подагента',
+      'updates.nonInteractiveLocalChanges': 'Локальные изменения при обновлении из приложения'
+    },
+    fieldDescriptions: {
+      model: 'Используется для новых чатов, если в редакторе не выбрана другая модель.',
+      modelContextLength: 'Оставьте 0, чтобы использовать автоматически определённое окно контекста выбранной модели.',
+      fallbackProviders: 'Резервные записи provider:model, которые Hermes попробует при сбое основной модели.',
+      'display.personality': 'Стиль ассистента по умолчанию для новых сессий.',
+      'display.showReasoning': 'Показывать блоки рассуждений, если бэкенд их предоставляет.',
+      timezone: 'Используется, когда Hermes нужен локальный временной контекст. Пустое значение означает системный часовой пояс.',
+      'agent.imageInputMode': 'Управляет тем, как вложения-изображения отправляются в модель.',
+      'agent.maxTurns': 'Верхний предел ходов с вызовами инструментов, после которого Hermes остановит выполнение.',
+      'terminal.cwd': 'Проектная папка по умолчанию для инструментов и терминала.',
+      'terminal.persistentShell': 'Сохранять состояние shell между командами, если бэкенд это поддерживает.',
+      'terminal.envPassthrough': 'Переменные окружения, которые передаются в выполнение инструментов.',
+      'terminal.dockerImage': 'Контейнерный образ для бэкенда выполнения Docker.',
+      'terminal.singularityImage': 'Образ для бэкенда выполнения Singularity.',
+      'terminal.modalImage': 'Образ для бэкенда выполнения Modal.',
+      'terminal.daytonaImage': 'Образ для бэкенда выполнения Daytona.',
+      'codeExecution.mode': 'Определяет, насколько строго выполнение кода ограничено текущим проектом.',
+      fileReadMaxChars: 'Максимальное число символов, которое Hermes может прочитать за один запрос к файлу.',
+      'approvals.mode': 'Как Hermes обрабатывает команды, требующие явного подтверждения.',
+      'approvals.timeout': 'Сколько ждать подтверждения перед истечением времени ожидания.',
+      'security.redactSecrets': 'По возможности скрывать найденные секреты из содержимого, видимого модели.',
+      'checkpoints.enabled': 'Создавать снимки отката перед изменением файлов.',
+      'memory.memoryEnabled': 'Сохранять долговременные заметки, полезные для будущих сессий.',
+      'memory.userProfileEnabled': 'Поддерживать компактный профиль пользовательских предпочтений.',
+      'context.engine': 'Стратегия управления длинными диалогами возле лимита контекста.',
+      'compression.enabled': 'Суммировать старый контекст, когда разговор становится большим.',
+      'voice.autoTts': 'Автоматически озвучивать ответы ассистента.',
+      'tts.xai.voiceId': 'ID голоса xAI, например eve, или пользовательский ID голоса.',
+      'tts.xai.language': 'Код языка речи, например en.',
+      'tts.neutts.device': 'Локальное устройство выполнения для NeuTTS.',
+      'stt.enabled': 'Включить локальное или провайдерское распознавание речи.',
+      'stt.echoTranscripts': 'Публиковать исходный 🎙️ транскрипт голосовых сообщений обратно в чат.',
+      'stt.elevenlabs.languageCode':
+        'Необязательный код языка ISO-639-3. Пустое значение позволяет ElevenLabs определить язык автоматически.',
+      'updates.nonInteractiveLocalChanges':
+        'Когда Hermes обновляется из приложения без терминального запроса, сохранять локальные правки (stash) или отбрасывать их. Обновления из терминала всегда спрашивают.'
     },
     about: {
       heading: 'Hermes Desktop',
@@ -397,6 +607,7 @@ export const ru = defineLocale({
       checkNow: 'Проверить сейчас',
       checking: 'Проверка…',
       seeWhatsNew: 'Что нового',
+      updateNow: 'Обновить сейчас',
       releaseNotes: 'Примечания к выпуску',
       onLatest: 'У вас последняя версия.',
       installing: 'Обновление устанавливается.',
@@ -469,7 +680,7 @@ export const ru = defineLocale({
       localDesc: 'Запустить приватный бэкенд Hermes на localhost. Работает без интернета.',
       remoteTitle: 'Удалённый шлюз',
       remoteDesc:
-        'Подключить desktop-оболочку к удалённому бэкенду Hermes.',
+        'Подключить Hermes Desktop к удалённому бэкенду Hermes.',
       remoteUrlTitle: 'Удалённый URL',
       remoteUrlDesc: 'Базовый URL удалённого бэкенда. Поддерживаются префиксы пути, например /hermes.',
       probing: 'Проверка метода аутентификации…',
@@ -547,7 +758,49 @@ export const ru = defineLocale({
       name: 'Имя',
       serverJson: 'JSON сервера',
       remove: 'Удалить',
-      saveServer: 'Сохранить сервер'
+      saveServer: 'Сохранить сервер',
+      test: 'Проверить соединение',
+      testing: 'Проверка...',
+      testOk: count => `Подключено — доступно ${countRu(count, 'инструмент', 'инструмента', 'инструментов')}`,
+      testFailed: 'Соединение не удалось',
+      enableServer: name => `Включить ${name}`,
+      disableServer: name => `Отключить ${name}`,
+      serverEnabled: name => `${name} включён — применится к новым сессиям.`,
+      serverDisabled: name => `${name} отключён — применится к новым сессиям.`,
+      toggleFailed: name => `Не удалось переключить ${name}`,
+      tabServers: 'Серверы',
+      tabCatalog: 'Каталог',
+      catalogLoading: 'Загрузка каталога MCP...',
+      catalogLoadFailed: 'Не удалось загрузить каталог MCP',
+      catalogEmpty: 'В каталоге пока нет записей.',
+      catalogInstalled: 'Установлен',
+      catalogEnabled: 'Включён',
+      catalogNeedsInstall: 'Требуется сборка',
+      catalogInstall: 'Установить',
+      catalogInstalling: 'Установка...',
+      catalogInstallStarted: name => `Установка ${name} началась... применится к новым сессиям после завершения.`,
+      catalogInstallFailed: name => `Не удалось установить ${name}`,
+      catalogEnvPrompt: name => `${name} требует учётные данные`,
+      catalogEnvRequired: 'Заполните обязательные значения перед установкой.',
+      capabilitySummary: (tools, prompts, resources) =>
+        `${[
+          `${tools} ${pluralRu(tools, 'инструмент', 'инструмента', 'инструментов')}`,
+          ...(prompts ? [`${prompts} ${pluralRu(prompts, 'запрос', 'запроса', 'запросов')}`] : []),
+          ...(resources ? [`${resources} ${pluralRu(resources, 'ресурс', 'ресурса', 'ресурсов')}`] : [])
+        ].join(', ')} включено`,
+      statusConnecting: 'Подключение…',
+      statusNeedsAuth: 'Нужна аутентификация',
+      statusError: 'Ошибка',
+      statusOff: 'Выкл',
+      allServers: 'Все серверы',
+      authenticatedTitle: 'Аутентификация выполнена',
+      authenticatedMessage: (server, count) => `${server}: ${countRu(count, 'инструмент', 'инструмента', 'инструментов')}`,
+      waitingForBrowser: 'Ожидание браузера…',
+      authenticate: 'Аутентифицироваться',
+      unsavedConnect: 'Не сохранено — сохраните mcp.json для подключения.',
+      enableTool: tool => `Включить ${tool}`,
+      disableTool: tool => `Отключить ${tool}`,
+      noOutput: 'Вывода пока нет.'
     },
     model: {
       loading: 'Загрузка конфигурации модели...',
@@ -555,13 +808,35 @@ export const ru = defineLocale({
       provider: 'Провайдер',
       model: 'Модель',
       applying: 'Применение...',
+      defaultsLabel: 'Параметры по умолчанию',
+      reasoning: 'Рассуждения',
+      reasoningOff: 'Выкл',
+      defaultsFailed: 'Не удалось сохранить параметры модели по умолчанию',
       auxiliaryTitle: 'Вспомогательные модели',
-      resetAllToMain: 'Сбросить все на основную',
+      resetAllToMain: 'Сбросить все задачи к основной',
       auxiliaryDesc: 'Вспомогательные задачи по умолчанию используют основную модель. Назначьте отдельную модель для любой задачи.',
+      staleAuxWarning: (count, names, provider) =>
+        `${countRu(count, 'вспомогательная задача', 'вспомогательные задачи', 'вспомогательных задач')} (${names}) всё ещё ${pluralRu(count, 'работает', 'работают', 'работают')} на ${provider}, а не на основной модели.`,
+      otherProviders: 'других провайдерах',
       setToMain: 'Как основная',
       change: 'Изменить',
       autoUseMain: 'авто · основная модель',
       providerDefault: '(по умолчанию провайдера)',
+      moa: {
+        title: 'Mixture of Agents',
+        description:
+          'Настройте именованные пресеты, которые будут отображаться как модели у провайдера Mixture of Agents. Итоговый ответ формирует агрегатор.',
+        presetPlaceholder: 'Пресет',
+        setDefault: 'Сделать по умолчанию',
+        deletePreset: 'Удалить',
+        newPresetPlaceholder: 'новый пресет',
+        addPreset: 'Добавить пресет',
+        defaultLabel: 'По умолчанию:',
+        referenceTitle: index => `Модель-участник ${index}`,
+        removeReference: 'Удалить',
+        addReferenceModel: 'Добавить модель-участник',
+        aggregatorTitle: 'Агрегатор'
+      },
       tasks: {
         vision: { label: 'Зрение', hint: 'Анализ изображений' },
         web_extract: { label: 'Веб-извлечение', hint: 'Резюмирование страниц' },
@@ -582,13 +857,20 @@ export const ru = defineLocale({
       collapse: 'Свернуть',
       connectAnother: 'Подключить другого провайдера',
       otherProviders: 'Другие провайдеры',
+      disconnect: 'Отключить',
+      disconnectInTerminal: 'Отключить (команда удаления будет выполнена в терминале)',
       removeConfirm: provider => `Удалить ${provider}?`,
       removeExternalGeneric: provider => `${provider} управляется через собственный CLI — удалите его там.`,
       removeKeyManaged: provider => `${provider} настроен через API-ключ. Удалите его в разделе API-ключей.`,
+      removeTerminalConfirm: (provider, command) =>
+        `Отключить ${provider}? Будет выполнена команда «${command}» в терминале для удаления учётных данных.`,
+      removeTerminalRunning: provider => `Отключение ${provider} выполняется в терминале…`,
       removedTitle: 'Аккаунт удалён',
       removedMessage: provider => `${provider} удалён.`,
       failedRemove: provider => `Не удалось удалить ${provider}`,
       noProviderKeys: 'API-ключи провайдеров не найдены.',
+      searchKeys: 'Поиск провайдеров…',
+      noKeysMatch: 'Провайдеры по запросу не найдены.',
       loading: 'Загрузка провайдеров...'
     },
     sessions: {
@@ -648,13 +930,24 @@ export const ru = defineLocale({
       postSetupCompleteMessage: step => `${step} установлен.`,
       postSetupErrorTitle: 'Установка завершена с ошибками',
       postSetupErrorMessage: step => `Проверьте журнал ${step}.`,
-      postSetupFailed: step => `Ошибка установки ${step}`
+      postSetupFailed: step => `Ошибка установки ${step}`,
+      loadingModels: 'Загрузка каталога моделей...',
+      modelSectionTitle: 'Модель',
+      modelCount: count => countRu(count, 'модель', 'модели', 'моделей'),
+      modelInUse: 'Используется',
+      modelDefault: 'по умолчанию',
+      modelInactiveHint: 'Сначала выберите этот бэкенд, чтобы изменить его модель.',
+      modelSelectedTitle: 'Модель выбрана',
+      modelSelectedMessage: model => `${model} применится к новым сессиям.`,
+      failedSelectModel: model => `Не удалось выбрать ${model}`
     }
   },
 
   skills: {
     tabSkills: 'Навыки',
     tabToolsets: 'Инструменты',
+    tabMcp: 'MCP',
+    tabHub: 'Каталог Hub',
     all: 'Все',
     searchSkills: 'Поиск навыков...',
     searchToolsets: 'Поиск инструментов...',
@@ -678,7 +971,109 @@ export const ru = defineLocale({
     toolsetEnabled: 'Инструмент включён',
     toolsetDisabled: 'Инструмент отключён',
     appliesToNewSessions: name => `${name} применится к новым сессиям.`,
-    failedToUpdate: name => `Не удалось обновить ${name}`
+    failedToUpdate: name => `Не удалось обновить ${name}`,
+    sortMostUsed: 'Чаще используемые',
+    sortAlpha: 'А–Я',
+    sortMostUsedDesc: '↓ чаще используемые',
+    sortLeastUsedAsc: '↑ реже используемые',
+    enableAll: 'Включить все',
+    disableAll: 'Отключить все',
+    disableUnused: 'Отключить неиспользуемые',
+    bulkUpdated: count => `Обновлено ${countRu(count, 'значение', 'значения', 'значений')} для новых сессий.`,
+    bulkNoChange: 'Менять нечего.',
+    usageCount: count => `использовано ${count}×`,
+    provenance: {
+      agent: 'Выучено',
+      bundled: 'Встроено',
+      hub: 'Hub'
+    },
+    emptyNoneFound: noun => `${noun} не найдены`,
+    emptyNothingMatches: query => `По запросу «${query}» ничего не найдено.`,
+    emptyNoneAvailable: noun => `${noun} пока недоступны.`,
+    changesApplyNewSessions: 'Изменения применяются к новым сессиям.',
+    skillUpdated: 'Навык обновлён',
+    edit: 'Редактировать',
+    archive: 'Архивировать',
+    skillArchivedTitle: 'Навык архивирован',
+    skillArchivedMessage: 'Можно восстановить через hermes curator restore.',
+    hub: {
+      searchPlaceholder: 'Поиск в каталоге навыков',
+      search: 'Поиск',
+      searching: 'Поиск...',
+      connectingHubs: 'Подключение к каталогам навыков...',
+      connectedHubs: 'Подключённые каталоги:',
+      featured: 'Рекомендуемые навыки',
+      landingHint:
+        'Ищите в Hub, чтобы просматривать устанавливаемые навыки из официального индекса, GitHub и источников сообщества.',
+      noResults: 'Подходящих навыков в Hub не найдено.',
+      resultCount: (count, ms) => `${countRu(count, 'результат', 'результата', 'результатов')}${ms !== null ? ` за ${ms} мс` : ''}`,
+      timedOut: sources => `Истекло время ожидания: ${sources}`,
+      installed: 'Установлен',
+      install: 'Установить',
+      installing: 'Установка...',
+      uninstall: 'Удалить',
+      uninstalling: 'Удаление...',
+      updateAll: 'Обновить установленные',
+      updating: 'Обновление...',
+      preview: 'Предпросмотр',
+      scan: 'Проверить',
+      scanning: 'Проверка...',
+      close: 'Закрыть',
+      files: 'Файлы',
+      noReadme: 'У этого навыка нет предпросмотра SKILL.md.',
+      trust: {
+        builtin: 'встроенный',
+        trusted: 'доверенный',
+        community: 'сообщество'
+      },
+      verdictSafe: 'Безопасно',
+      verdictCaution: 'С осторожностью',
+      verdictDangerous: 'Опасно',
+      policyAllow: 'Установка разрешена',
+      policyAsk: 'Проверить перед установкой',
+      policyBlock: 'Установка заблокирована политикой',
+      findings: count => countRu(count, 'находка', 'находки', 'находок'),
+      noFindings: 'Проблем безопасности не найдено.',
+      installStarted: name => `Установка ${name} началась...`,
+      uninstallStarted: name => `Удаление ${name} началось...`,
+      updateStarted: 'Обновление установленных навыков...',
+      actionFailed: 'Действие с навыком не удалось',
+      actionLog: 'Журнал действия',
+      loadFailed: 'Не удалось загрузить Hub навыков',
+      previewFailed: 'Не удалось показать предпросмотр навыка',
+      scanFailed: 'Проверка безопасности не удалась',
+      searchFailed: 'Поиск в Hub не удался'
+    }
+  },
+
+  starmap: {
+    title: 'Граф памяти',
+    subtitle: (nodes, clusters) =>
+      `${countRu(nodes, 'навык', 'навыка', 'навыков')} в ${countRu(clusters, 'категории', 'категориях', 'категориях')}`,
+    close: 'Закрыть граф памяти',
+    refresh: 'Обновить',
+    memory: 'Память',
+    filterAll: 'Все',
+    filterUsed: 'Использованные',
+    filterLearned: 'Выученные',
+    viewGraph: 'Граф',
+    loadFailed: 'Не удалось загрузить граф памяти',
+    loading: 'Загрузка…',
+    emptyTitle: 'Пока ничего не выучено',
+    emptyDesc: 'Когда Hermes будет создавать навыки и воспоминания для вашей работы, они появятся здесь.',
+    share: 'Поделиться картой',
+    shareHint:
+      'Скопируйте код, чтобы поделиться этой картой, или вставьте код для загрузки. В код входит только раскладка, без вашей памяти и текста навыков.',
+    shareTitle: 'Импорт / экспорт карты',
+    sharePlaceholder: 'Вставьте код карты…',
+    copy: 'Копировать код карты',
+    copied: 'Скопировано!',
+    importMap: 'Импортировать карту',
+    importBtn: 'Загрузить',
+    importEmpty: 'Вставьте код карты для загрузки.',
+    importSuccess: nodes => `Загружена карта с ${countRu(nodes, 'узлом', 'узлами', 'узлами')}.`,
+    importedBadge: 'импортированная карта',
+    resetToMine: 'Вернуться к моей карте'
   },
 
   agents: {
@@ -690,11 +1085,11 @@ export const ru = defineLocale({
     running: 'Выполняется',
     failed: 'Ошибка',
     done: 'Готово',
-    streaming: 'Стриминг',
+    streaming: 'Поток',
     files: 'Файлы',
     moreFiles: count => `+${countRu(count, 'файл', 'файла', 'файлов')}`,
     delegation: index => `Делегирование ${index}`,
-    workers: count => `${count} воркеров`,
+    workers: count => countRu(count, 'исполнитель', 'исполнителя', 'исполнителей'),
     workersActive: count => `${count} активных`,
     agentsCount: count => countRu(count, 'агент', 'агента', 'агентов'),
     activeCount: count => `${count} активных`,
@@ -718,13 +1113,61 @@ export const ru = defineLocale({
     searchPlaceholder: 'Поиск сессий, видов и действий',
     goTo: 'Перейти',
     goToSession: 'Перейти к сессии',
+    branches: 'Ветки',
+    startInBranch: branch => `Новый разговор в ${branch}`,
     commandCenter: 'Командный центр',
     appearance: 'Внешний вид',
     settings: 'Настройки',
     changeTheme: 'Сменить тему...',
     changeColorMode: 'Сменить цветовой режим...',
+    pets: {
+      title: 'Питомцы',
+      placeholder: 'Поиск питомцев…',
+      loading: 'Загрузка галереи petdex…',
+      error: 'Не удалось открыть галерею petdex.',
+      staleBackend: 'Перезапустите Hermes, чтобы использовать питомцев — бэкенд старше этой функции.',
+      empty: 'Подходящих питомцев нет.',
+      turnOff: 'Выключить',
+      turnOn: 'Включить',
+      installed: 'Установлен',
+      generatedTag: 'Сгенерирован',
+      adoptFailed: 'Не удалось добавить питомца.',
+      toggleFailed: 'Не удалось переключить питомца.',
+      noneAvailable: 'Доступных питомцев нет — выберите одного ниже для установки.'
+    },
+    generatePet: {
+      title: 'Сгенерировать питомца',
+      placeholder: 'Опишите питомца для генерации…',
+      promptHint: 'Введите описание и нажмите Enter, чтобы подготовить четыре варианта.',
+      readyHint: 'Нажмите Enter, чтобы подготовить четыре варианта по вашему описанию.',
+      generate: 'Сгенерировать',
+      generating: 'Генерация…',
+      retry: 'Повторить',
+      hatch: 'Вылупить',
+      spawning: 'Создание…',
+      hatching: 'Питомец вылупляется…',
+      hatchingSub: 'Оживляем его…',
+      hatched: 'Вылупился!',
+      hatchRow: (_state, done, total) => `Рисуем кадр ${done} из ${total}…`,
+      hatchComposing: 'Собираем анимацию…',
+      hatchSaving: 'Почти готово…',
+      namePlaceholder: 'Назовите питомца',
+      staleBackend: 'Обновите Hermes, чтобы генерировать питомцев.',
+      backgroundHint: 'Можно закрыть это окно — Hermes уведомит вас по завершении.',
+      slowProviderHint: 'Это может занять несколько минут',
+      remix: 'Вариации',
+      remixConfirmTitle: 'Сделать вариации этого варианта?',
+      remixConfirmBody:
+        'Hermes сгенерирует новый набор черновиков, используя этот вариант как основу. Это может занять несколько минут.',
+      genericError: 'Генерация не удалась — попробуйте ещё раз или выберите предложенный вариант.',
+      referenceImageTooLarge: 'Изображение-референс слишком большое. Используйте файл меньше 16 МБ.',
+      referenceImageInvalid: 'Не удалось прочитать референс. Попробуйте PNG, JPG, WebP или GIF.',
+      adopt: 'Добавить',
+      startOver: 'Начать заново'
+    },
     installTheme: {
       title: 'Установить тему...',
+      pageTitle: 'Установить тему',
       placeholder: 'Поиск в VS Code Marketplace...',
       loading: 'Поиск в Marketplace...',
       error: 'Не удалось подключиться к Marketplace.',
@@ -737,8 +1180,9 @@ export const ru = defineLocale({
     settingsFields: 'Поля настроек',
     mcpServers: 'MCP-серверы',
     archivedChats: 'Архив чатов',
-    sections: { sessions: 'Сессии', system: 'Система', usage: 'Использование' },
+    sections: { maintenance: 'Обслуживание', sessions: 'Сессии', system: 'Система', usage: 'Использование' },
     sectionDescriptions: {
+      maintenance: 'Диагностика, резервные копии, куратор и данные памяти',
       sessions: 'Поиск и управление сессиями',
       system: 'Статус, журналы и системные действия',
       usage: 'Токены, стоимость и активность навыков'
@@ -768,6 +1212,8 @@ export const ru = defineLocale({
     gatewayRunning: 'Шлюз мессенджеров работает',
     gatewayStopped: 'Шлюз мессенджеров остановлен',
     hermesActiveSessions: (version, count) => `Hermes ${version} · Активных сессий: ${count}`,
+    restartGateway: 'Перезапустить шлюз',
+    gatewayRestartFailed: 'Не удалось перезапустить шлюз.',
     updateHermes: 'Обновить Hermes',
     actionRunning: 'выполняется',
     actionDone: 'готово',
@@ -793,7 +1239,54 @@ export const ru = defineLocale({
     noModelUsage: 'Использования моделей пока нет.',
     topSkills: 'Топ навыков',
     noSkillActivity: 'Активности навыков пока нет.',
-    actions: count => `${count} действий`
+    actions: count => `${count} действий`,
+    logFile: 'Файл журнала',
+    logLevel: 'Уровень',
+    logSearchPlaceholder: 'Фильтр строк журнала...',
+    maintenance: {
+      runOps: 'Диагностика',
+      doctor: 'Запустить doctor',
+      doctorDesc: 'Проверить установку, конфигурацию и провайдеры',
+      securityAudit: 'Аудит безопасности',
+      securityAuditDesc: 'Проверить конфигурацию и навыки на рискованные настройки',
+      backup: 'Создать резервную копию',
+      backupDesc: 'Упаковать конфигурацию, память, навыки и сессии в zip',
+      debugShare: 'Отладочный отчёт',
+      debugShareDesc: 'Загрузить отредактированный отчёт и журналы, получить ссылки для отправки (автоудаление через 6 ч)',
+      debugShareRunning: 'Загрузка отладочного отчёта...',
+      debugShareLinks: 'Ссылки для отправки',
+      debugShareFailed: 'Не удалось отправить отладочный отчёт',
+      copyLink: 'Копировать ссылку',
+      linkCopied: 'Ссылка скопирована',
+      curator: 'Куратор навыков',
+      curatorDesc: 'Фоновая проверка, которая архивирует устаревшие навыки, созданные агентом',
+      curatorPaused: 'Приостановлен',
+      curatorActive: 'Активен',
+      curatorDisabled: 'Отключён',
+      curatorLastRun: when => `Последний запуск: ${when}`,
+      curatorNeverRan: 'Ещё не запускался',
+      pause: 'Приостановить',
+      resume: 'Возобновить',
+      runNow: 'Запустить сейчас',
+      memoryData: 'Данные памяти',
+      memoryDataDesc: 'Встроенные файлы памяти, добавляемые в каждую сессию',
+      memoryProvider: name => `Активный провайдер: ${name}`,
+      builtinMemory: 'встроенная',
+      memoryFile: 'Память агента (MEMORY.md)',
+      userFile: 'Профиль пользователя (USER.md)',
+      bytes: size => size,
+      empty: 'пусто',
+      resetMemory: 'Сбросить память',
+      resetUser: 'Сбросить профиль',
+      resetAll: 'Сбросить оба',
+      resetConfirm: target => `Удалить ${target}? Это действие необратимо.`,
+      resetDone: files => `Удалено: ${files}.`,
+      resetFailed: 'Не удалось сбросить память',
+      actionStarted: name => `${name} запущено — показываем журнал...`,
+      actionFailed: name => `Не удалось запустить ${name}`,
+      running: 'Выполняется...',
+      viewLog: 'Журнал действия'
+    }
   },
 
   messaging: {
@@ -854,6 +1347,27 @@ export const ru = defineLocale({
         label: 'Разрешённые Telegram ID',
         help: 'Рекомендуется. Числовые ID через запятую из @userinfobot. Без этого любой может написать вашему боту.'
       },
+      TELEGRAM_ALLOW_ALL_USERS: {
+        label: 'Разрешить всех пользователей',
+        help: 'Только для разработки. Если указать true, любой пользователь Telegram сможет запускать бота.',
+        placeholder: 'true или false'
+      },
+      TELEGRAM_HOME_CHANNEL: {
+        label: 'ID домашнего канала',
+        help: 'Чат или канал по умолчанию для доставки cron-задач и уведомлений.'
+      },
+      TELEGRAM_HOME_CHANNEL_NAME: {
+        label: 'Название домашнего канала',
+        help: 'Отображаемое имя домашнего канала в журналах и статусе.'
+      },
+      TELEGRAM_HOME_CHANNEL_THREAD_ID: {
+        label: 'ID темы домашнего канала',
+        help: 'Необязательно. ID темы Telegram для сообщений домашнего канала.'
+      },
+      TELEGRAM_CRON_THREAD_ID: {
+        label: 'ID темы для cron',
+        help: 'Необязательно. Тема Telegram, куда будут доставляться cron-задачи.'
+      },
       TELEGRAM_PROXY: { label: 'URL прокси', help: 'Нужен только если Telegram заблокирован в вашей сети.' },
       DISCORD_BOT_TOKEN: {
         label: 'Токен бота',
@@ -862,6 +1376,22 @@ export const ru = defineLocale({
       DISCORD_ALLOWED_USERS: {
         label: 'Разрешённые Discord ID',
         help: 'Рекомендуется. Discord ID через запятую.'
+      },
+      DISCORD_REPLY_TO_MODE: {
+        label: 'Стиль ответа',
+        help: 'first, all или off.'
+      },
+      DISCORD_ALLOW_ALL_USERS: {
+        label: 'Разрешить всех пользователей Discord',
+        help: 'Только для разработки. Если включено, любой пользователь сможет написать боту без allowlist.'
+      },
+      DISCORD_HOME_CHANNEL: {
+        label: 'ID домашнего канала',
+        help: 'Канал для проактивных сообщений бота: cron-результатов и напоминаний.'
+      },
+      DISCORD_HOME_CHANNEL_NAME: {
+        label: 'Название домашнего канала',
+        help: 'Отображаемое имя домашнего канала в журналах и статусе.'
       },
       SLACK_BOT_TOKEN: {
         label: 'Токен Slack-бота',
@@ -873,9 +1403,101 @@ export const ru = defineLocale({
         help: 'Токен уровня приложения для Socket Mode.',
         placeholder: 'Вставить токен приложения'
       },
-      SLACK_ALLOWED_USERS: { label: 'Разрешённые Slack ID', help: 'Рекомендуется. Slack ID через запятую.' }
+      SLACK_ALLOWED_USERS: { label: 'Разрешённые Slack ID', help: 'Рекомендуется. Slack ID через запятую.' },
+      BLUEBUBBLES_ALLOW_ALL_USERS: {
+        label: 'Разрешить всех пользователей iMessage',
+        help: 'Если включено, BlueBubbles allowlist не используется.'
+      },
+      MATTERMOST_ALLOW_ALL_USERS: { label: 'Разрешить всех пользователей Mattermost' },
+      MATTERMOST_HOME_CHANNEL: { label: 'Домашний канал' },
+      QQ_ALLOW_ALL_USERS: { label: 'Разрешить всех пользователей QQ' },
+      QQBOT_HOME_CHANNEL: {
+        label: 'Домашний канал QQ',
+        help: 'Канал или группа по умолчанию для доставки cron-задач.'
+      },
+      QQBOT_HOME_CHANNEL_NAME: { label: 'Название домашнего канала QQ' },
+      MATTERMOST_URL: {
+        label: 'URL сервера',
+        placeholder: 'https://mattermost.example.com'
+      },
+      MATTERMOST_TOKEN: { label: 'Токен бота' },
+      MATTERMOST_ALLOWED_USERS: {
+        label: 'Разрешённые ID пользователей',
+        help: 'Рекомендуется. ID пользователей Mattermost через запятую.'
+      },
+      MATRIX_HOMESERVER: {
+        label: 'URL homeserver',
+        placeholder: 'https://matrix.org'
+      },
+      MATRIX_ACCESS_TOKEN: { label: 'Токен доступа' },
+      MATRIX_USER_ID: {
+        label: 'ID пользователя бота',
+        placeholder: '@hermes:example.org'
+      },
+      MATRIX_ALLOWED_USERS: {
+        label: 'Разрешённые Matrix ID',
+        help: 'Рекомендуется. ID пользователей через запятую в формате @user:server.'
+      },
+      SIGNAL_HTTP_URL: {
+        label: 'URL Signal bridge',
+        placeholder: 'http://127.0.0.1:8080',
+        help: 'URL запущенного signal-cli REST bridge.'
+      },
+      SIGNAL_ACCOUNT: {
+        label: 'Номер телефона',
+        help: 'Номер, зарегистрированный в вашем signal-cli bridge.'
+      },
+      SIGNAL_ALLOWED_USERS: {
+        label: 'Разрешённые пользователи Signal',
+        help: 'Рекомендуется. Идентификаторы Signal через запятую.'
+      },
+      WHATSAPP_ENABLED: {
+        label: 'Включить WhatsApp bridge',
+        help: 'Автоматически задаётся переключателем ниже. Не меняйте вручную, если точно не нужно.'
+      },
+      WHATSAPP_MODE: { label: 'Режим bridge' },
+      WHATSAPP_ALLOWED_USERS: {
+        label: 'Разрешённые пользователи WhatsApp',
+        help: 'Рекомендуется. Номера телефонов или WhatsApp ID через запятую.'
+      }
     },
-    platformIntro: {}
+    platformIntro: {
+      telegram:
+        'В Telegram напишите @BotFather, выполните /newbot и скопируйте выданный токен. Затем получите свой числовой ID у @userinfobot.',
+      discord:
+        'Откройте Discord Developer Portal, создайте приложение, добавьте бота и скопируйте его токен. Затем пригласите бота на сервер с нужными разрешениями.',
+      slack:
+        'Создайте приложение Slack, включите Socket Mode, установите приложение в рабочую область, затем скопируйте токен бота и app-level token.',
+      mattermost:
+        'На сервере Mattermost создайте аккаунт бота или personal access token, затем вставьте здесь URL сервера и токен.',
+      matrix:
+        'Войдите на homeserver под аккаунтом бота, затем скопируйте access token, user ID и URL homeserver.',
+      signal:
+        'Запустите signal-cli REST bridge в доступном месте, затем укажите в Hermes его URL и зарегистрированный номер телефона.',
+      whatsapp:
+        'Запустите WhatsApp bridge, который поставляется с Hermes, при первом запуске отсканируйте QR-код и включите платформу.',
+      bluebubbles:
+        'Запустите BlueBubbles Server на Mac с iMessage, откройте доступ к его API и укажите в Hermes URL вместе с паролем сервера.',
+      homeassistant:
+        'В Home Assistant откройте профиль и создайте long-lived access token. Вставьте его здесь вместе с URL Home Assistant.',
+      email:
+        'Используйте отдельный почтовый ящик. Для Gmail или Workspace создайте app password и используйте imap.gmail.com / smtp.gmail.com.',
+      sms: 'Получите Twilio Account SID и Auth Token в консоли Twilio, а также номер телефона, с которого можно отправлять SMS.',
+      dingtalk: 'Создайте приложение DingTalk в консоли разработчика, затем скопируйте сюда Client ID (App key) и Client Secret.',
+      feishu:
+        'Создайте приложение Feishu / Lark, включите бота и скопируйте App ID, App secret и ключи шифрования событий.',
+      wecom:
+        'Добавьте группового робота в WeCom и скопируйте его webhook key как WECOM_BOT_ID. Это режим только для отправки; для двусторонней связи используйте вариант WeCom (app).',
+      wecom_callback:
+        'Настройте self-built app в WeCom, откройте callback URL и укажите corp ID, secret, agent ID и AES key.',
+      weixin:
+        'Запустите `hermes gateway setup`, выберите Weixin, затем отсканируйте и подтвердите QR-код личным аккаунтом WeChat. Hermes подключится через Tencent iLink Bot API и сохранит учётные данные.',
+      qqbot: 'Зарегистрируйте приложение на QQ Open Platform (q.qq.com) и скопируйте App ID и Client Secret.',
+      api_server:
+        'Откройте Hermes как OpenAI-совместимый API. Задайте auth key, затем укажите Open WebUI / LobeChat / другой клиент на host:port.',
+      webhook:
+        'Запустите HTTP-сервер, куда другие инструменты (GitHub, GitLab, собственные приложения) смогут отправлять POST-запросы. Используйте secret для проверки подписей.'
+    }
   },
 
   profiles: {
@@ -884,6 +1506,7 @@ export const ru = defineLocale({
     title: 'Профили',
     count: count => countRu(count, 'профиль', 'профиля', 'профилей'),
     loading: 'Загрузка профилей...',
+    search: 'Поиск профилей...',
     newProfile: 'Новый профиль',
     allProfiles: 'Все профили',
     showAllProfiles: 'Показать все профили',
@@ -903,6 +1526,8 @@ export const ru = defineLocale({
     env: 'env',
     defaultBadge: 'По умолчанию',
     rename: 'Переименовать',
+    renameMenu: 'Переименовать…',
+    editSoul: 'Редактировать SOUL.md…',
     copySetup: 'Копировать команду',
     copying: 'Копирование...',
     modelLabel: 'Модель',
@@ -954,7 +1579,9 @@ export const ru = defineLocale({
   },
 
   cron: {
+    title: 'Задачи по расписанию',
     close: 'Закрыть расписание',
+    count: count => countRu(count, 'задача', 'задачи', 'задач'),
     search: 'Поиск задач...',
     loading: 'Загрузка задач...',
     states: {
@@ -1105,6 +1732,71 @@ export const ru = defineLocale({
       messaging: 'Мессенджеры',
       artifacts: 'Артефакты'
     },
+    showProjects: 'Показать проекты',
+    showSessions: 'Показать сессии',
+    noProject: 'Проект не выбран',
+    projectEmpty: 'Сессий пока нет',
+    noSessions: 'Сессий пока нет',
+    projects: {
+      sectionLabel: 'Проекты',
+      newButton: 'Новый проект',
+      createTitle: 'Новый проект',
+      createDesc: 'Назовите рабочее пространство и добавьте одну или несколько папок.',
+      renameTitle: 'Переименовать проект',
+      addFolderTitle: 'Добавить папку',
+      namePlaceholder: 'например, Skunkworks',
+      foldersLabel: 'Папки',
+      ideaLabel: 'Идея',
+      ideaPlaceholder: 'О чём этот проект? (сохранится в IDEA.md)',
+      ideaGenerate: 'Сгенерировать идею',
+      ideaGenerating: 'Генерация…',
+      ideaShuffle: 'Перемешать шаблоны',
+      noFolders: 'Папки пока не добавлены.',
+      addFolder: 'Добавить папку',
+      primaryBadge: 'основная',
+      removeFolder: 'Удалить',
+      create: 'Создать',
+      menu: 'Действия с проектом',
+      menuRename: 'Переименовать',
+      menuAppearance: 'Внешний вид',
+      noColor: 'Без цвета',
+      menuAddFolder: 'Добавить папку',
+      menuSetActive: 'Сделать активным',
+      menuDelete: 'Удалить',
+      reveal: 'Показать в папке',
+      copyPath: 'Копировать путь',
+      removeFromSidebar: 'Скрыть из боковой панели',
+      createFailed: 'Не удалось создать проект',
+      staleBackend:
+        'Обновите бэкенд Hermes, чтобы создавать проекты — ваш бэкенд старше этого desktop-приложения (Настройки → Обновления → Бэкенд).',
+      deleteConfirm: 'Это удалит сохранённый проект из Hermes. Файлы, git-репозитории и worktree останутся нетронутыми.',
+      startWork: 'Новый worktree',
+      newWorktreeTitle: 'Новый worktree',
+      newWorktreeDesc: 'Укажите имя ветки для этого worktree.',
+      branchPlaceholder: 'например, my-feature',
+      startWorkFailed: 'Не удалось создать worktree',
+      convertBranch: 'Преобразовать ветку…',
+      convertBranchTitle: 'Преобразовать ветку',
+      convertBranchDesc: 'Откройте уже checkout-нутые ветки или создайте worktree для свободной ветки.',
+      convertBranchPlaceholder: 'Поиск веток…',
+      convertBranchInstead: 'Преобразовать существующую ветку',
+      branchOpenExisting: 'открыть',
+      branchSwitchHome: 'переключить home',
+      branchCreateWorktree: 'новый worktree',
+      branchesLoading: 'Загрузка веток…',
+      noBranches: 'Ветки не найдены',
+      removeWorktree: 'Удалить worktree',
+      removeWorktreeFailed: 'Не удалось удалить worktree (есть несохранённые изменения?)',
+      removeWorktreeConfirm:
+        'Удалить его из git (папка worktree будет удалена, ветка останется) или только скрыть дорожку из боковой панели и оставить worktree на диске.',
+      removeWorktreeDirty:
+        'В этом worktree есть несохранённые изменения. Можно удалить принудительно (изменения будут потеряны) или только скрыть дорожку и оставить worktree на диске.',
+      forceRemove: 'Удалить принудительно',
+      enter: label => `Открыть ${label}`,
+      reorder: label => `Изменить порядок: ${label}`,
+      toggle: label => `Показать или скрыть сессии проекта ${label}`,
+      back: 'Все проекты'
+    },
     searchAria: 'Поиск сессий',
     searchPlaceholder: 'Поиск сессий…',
     clearSearch: 'Очистить поиск',
@@ -1148,7 +1840,8 @@ export const ru = defineLocale({
       ageNow: 'сейчас',
       ageDay: 'д',
       ageHour: 'ч',
-      ageMin: 'м'
+      ageMin: 'м',
+      branchFrom: 'Ветка'
     }
   },
 
@@ -1212,7 +1905,7 @@ export const ru = defineLocale({
     },
     hotkeyDescs: {
       'composer.mention': 'файлы, папки, URL, git',
-      'composer.slash': 'палитра slash-команд',
+      'composer.slash': 'палитра слэш-команд',
       'composer.help': 'эта справка (Delete для закрытия)',
       'composer.sendNewline': 'отправить · Shift+Enter для новой строки',
       'composer.sendQueued': 'отправить следующее в очереди',
@@ -1245,6 +1938,8 @@ export const ru = defineLocale({
     preparingAudio: 'Подготовка аудио',
     speakingResponse: 'Озвучивание ответа',
     readingAloud: 'Читает вслух',
+    speakReplies: 'Озвучивать ответы',
+    stopSpeakingReplies: 'Остановить озвучивание ответов',
     themeSuggestions: 'Темы Hermes Desktop',
     noMatchingThemes: 'Подходящих тем нет.',
     themeTryPre: 'Попробуйте ',
@@ -1281,6 +1976,376 @@ export const ru = defineLocale({
     }
   },
 
+  intro: {
+    fallbackCopy: [
+      {
+        headline: 'С чего начнём?',
+        body: 'Опишите баг, ветку, план или черновую идею. Я изучу репозиторий и предложу следующий конкретный шаг.'
+      },
+      {
+        headline: 'Что нужно разобрать?',
+        body: 'Пришлите код, вопрос или место, где всё застопорилось. Сначала разберусь в контексте, затем предложу правку.'
+      },
+      {
+        headline: 'На что Hermes должен посмотреть?',
+        body: 'Пришлите задачу, падающий путь или ещё сырой план. Помогу превратить это в понятное действие.'
+      },
+      {
+        headline: 'Откуда начнём?',
+        body: 'Дайте проблему, цель или файл. Сначала изучу контекст и буду держать следующий шаг конкретным.'
+      },
+      {
+        headline: 'Что требует внимания?',
+        body: 'Пришлите доступный контекст. Помогу разложить его в план или сразу довести до исправления.'
+      }
+    ],
+    fallbackTemplates: {
+      modeOnHeadline: label => `Режим ${label} включён. Над чем работаем?`,
+      modeOnBody:
+        'Пришлите задачу, файл или черновую идею. Я учту выбранный стиль ответа и буду опираться на этот репозиторий.',
+      needSeeHeadline: label => `Что показать Hermes в режиме ${label}?`,
+      needSeeBody: 'Пришлите контекст или место, где возникла проблема. Я подстроюсь под выбранный стиль.',
+      readyHeadline: label => `Режим ${label} готов.`,
+      readyBody: 'Пришлите проблему, файл или идею. Я буду следовать настроенному стилю.',
+      tackleHeadline: label => `Что Hermes должен разобрать в режиме ${label}?`,
+      tackleBody: 'Оставьте задачу здесь. Я буду держать работу привязанной к репозиторию.',
+      beginHeadline: 'С чего начнём?',
+      beginBody: label => `Дайте контекст, и я отвечу в режиме ${label}.`
+    },
+    copy: {
+      helpful: [
+        {
+          headline: 'Готов, когда будете готовы',
+          body: 'Попросите открыть репозиторий, запустить тесты, исправить баг или подготовить PR. Я пройду шаги вместе с вами.'
+        },
+        {
+          headline: 'Чем помочь сегодня?',
+          body: 'Укажите файл, вставьте ошибку или опишите, что вы собираете. Дальше я разберусь.'
+        },
+        {
+          headline: 'Начнём',
+          body: 'Можно попросить: проверить diff, запустить тесты или объяснить функцию. Задавайте любой вопрос по коду.'
+        },
+        {
+          headline: 'Расскажите, что нужно',
+          body: 'Я могу редактировать файлы, выполнять команды, искать информацию и помогать с трудными багами. Просто опишите задачу.'
+        },
+        {
+          headline: 'Hermes на связи',
+          body: 'Пришлите путь к репозиторию или вопрос. Я отвечу понятно и буду ссылаться на файлы, которые затрагиваю.'
+        }
+      ],
+      concise: [
+        {
+          headline: 'Готов.',
+          body: 'Опишите задачу. Я выполню.'
+        },
+        {
+          headline: 'Ожидаю ввод',
+          body: 'Вставьте код, ошибку или цель. Короткие ответы, быстрые правки.'
+        },
+        {
+          headline: 'Поехали.',
+          body: 'Спросите. Я прочитаю файлы, запущу тесты и подготовлю патч. Без лишнего.'
+        },
+        {
+          headline: 'На связи',
+          body: 'Достаточно одной строки. Разверну ответ только там, где это важно.'
+        },
+        {
+          headline: 'Ваш ход',
+          body: 'Команда, вопрос или путь к файлу. Остальное беру на себя.'
+        }
+      ],
+      technical: [
+        {
+          headline: 'Среда готова. Ожидаю ввод.',
+          body: 'Укажите путь к репозиторию, падающий тест или трассировку стека. Доступны: fs, git, exec, search, patch, http.'
+        },
+        {
+          headline: 'Цикл агента свободен',
+          body: 'Отправьте запрос, чтобы запустить вызовы инструментов. Поддерживаются многофайловые правки, тесты, git-операции и web-запросы.'
+        },
+        {
+          headline: 'Готов к выполнению',
+          body: 'Введите задачу. Я составлю план, вызову инструменты и проверю результат. Логи покажу inline, diff — перед применением.'
+        },
+        {
+          headline: 'Ввод открыт',
+          body: 'Принимаю естественный язык и структурированные команды. Типичный цикл: чтение -> план -> патч -> тест -> отчёт.'
+        },
+        {
+          headline: 'Инструменты инициализированы',
+          body: 'Файловая система, терминал, git, browser и search готовы. Опишите изменение — верну diff и результат проверки.'
+        }
+      ],
+      creative: [
+        {
+          headline: 'Пустой репозиторий, мигающий курсор',
+          body: 'Что будем создавать? Принесите идею, поломанную функцию или смелый набросок — я помогу придать этому форму.'
+        },
+        {
+          headline: 'Чистый холст, тёплый компилятор',
+          body: 'Дайте искру: фичу, рефакторинг или дикий прототип. Я превращу её в код, который можно запустить.'
+        },
+        {
+          headline: 'Сделаем что-нибудь живое',
+          body: 'Опишите то, чего пока нет. Я соберу тесты, файлы и API в рабочий черновик.'
+        },
+        {
+          headline: 'Новый файл, новые возможности',
+          body: 'Принесите намерение, а не идеальную спецификацию. Быстро прототипируем, потом аккуратно доведём.'
+        },
+        {
+          headline: 'Муза подключена к патчу',
+          body: 'Расскажите, за чем охотимся. Я переработаю примеры, адаптирую фрагменты и оставлю аккуратный коммит.'
+        }
+      ],
+      teacher: [
+        {
+          headline: 'Занятие начинается',
+          body: 'Спросите о любом файле, концепции или ошибке. Я объясню не только исправление, но и причину, с рабочим примером.'
+        },
+        {
+          headline: 'Что изучим сегодня?',
+          body: 'Вставьте код для ревью, баг для отладки или тему для разбора. Проведу вас по шагам.'
+        },
+        {
+          headline: 'Готов разобрать вместе',
+          body: 'Поделитесь проблемой. Я разделю её на части, объясню каждую и оставлю понятную модель для следующих задач.'
+        },
+        {
+          headline: 'Приносите вопрос',
+          body: 'Мы вместе прочитаем код, найдём первопричину и соберём подход, который пригодится в следующий раз.'
+        },
+        {
+          headline: 'Начнём с основ',
+          body: 'Назовите тему или вставьте фрагмент. Будут объяснения, понятные схемы словами и практические подсказки.'
+        }
+      ],
+      kawaii: [
+        {
+          headline: 'привет-привет! готов помочь! (^_^)',
+          body: 'вставьте баг или путь к файлу, и я всё аккуратно поправлю. тесты, diff и PR — с особой заботой!'
+        },
+        {
+          headline: 'hermes-chan здесь! <3',
+          body: 'расскажите, что вы делаете! я люблю рефакторинг, маленькие helper-функции и большие страшные репозитории (>w<)'
+        },
+        {
+          headline: 'давайте кодить вместе!! :3',
+          body: 'пришлите ошибку, цель или целую папку. я наведу порядок с любовью и чистым сообщением коммита!'
+        },
+        {
+          headline: 'жду ваше желание~',
+          body: 'по одной задаче за раз, аккуратно и спокойно! могу запускать тесты, применять патчи и снова делать репозиторий уютным <3'
+        },
+        {
+          headline: 'готов и очень рад! (>.<)',
+          body: 'скажите привет или вставьте трассировку стека! нет слишком маленьких задач и слишком запутанных репозиториев — распутаем вместе!'
+        }
+      ],
+      catgirl: [
+        {
+          headline: 'ня~ что сегодня взламываем?',
+          body: 'пришлите файл, баг или репозиторий. я прыгну на падающие тесты и оставлю чистый diff, ня~'
+        },
+        {
+          headline: '*потягивается* готова кодить, ня',
+          body: 'опишите задачу. я поправлю, проверю и помурчу над PR. осторожно: неиспользуемые импорты кусаю!'
+        },
+        {
+          headline: 'мрр! новая сессия открыта',
+          body: 'дайте цель, и я прослежу её по кодовой базе: чтение, правки, запуск — всё с хвостом трубой.'
+        },
+        {
+          headline: 'хвост вверх, когти убраны',
+          body: 'вставьте ошибку или план. я отлаживаю как охочусь: тихо, тщательно и иногда с внезапным рывком.'
+        },
+        {
+          headline: 'няаа~ Hermes докладывает',
+          body: 'скажите слово — прочитаю файлы, запущу тесты и уютно свернусь в вашей ветке с аккуратным коммитом.'
+        }
+      ],
+      pirate: [
+        {
+          headline: 'Эй, на палубу! Репозиторий ждёт',
+          body: 'Назовите добычу: баг, фичу или проклятый тест. Я выследю её, капитан, и принесу diff.'
+        },
+        {
+          headline: 'Hermes у штурвала, арр',
+          body: 'Покажите карты, то есть код. Я залатаю корпус, выстрелю тестами и подниму чистый PR.'
+        },
+        {
+          headline: 'Каков приказ, капитан?',
+          body: 'Вставьте ошибку или план. Я проведу нас через трассировку стека и вернусь с сокровищем: зелёными тестами.'
+        },
+        {
+          headline: 'Якоря поднять, клавиатура готова',
+          body: 'Скажите, где крестик на карте. Я читаю, правлю и коммичу с дисциплиной хорошей команды, арр.'
+        },
+        {
+          headline: 'Йо-хо! Жду приказов',
+          body: 'Бросьте мне баг, путь к репозиторию или смелую идею. Я прошерстю документацию и вернусь с рабочим кодом.'
+        }
+      ],
+      shakespeare: [
+        {
+          headline: 'Молви, какую задачу несёшь?',
+          body: 'Назови баг, файл или утомлённый тест — и я исправлю его учёной рукой и честным diff.'
+        },
+        {
+          headline: 'Внемли! Hermes готов',
+          body: 'Назови код, что тревожит тебя. Я прочту, исправлю и явлю патч чистый и достойный.'
+        },
+        {
+          headline: 'Какие вести из твоего репозитория?',
+          body: 'Предъяви трассировку стека или замысел. Я пройду по файлам, запущу тесты и доложу ясной речью.'
+        },
+        {
+          headline: 'Сцена готова, курсор мигает',
+          body: 'Опиши стремление своё. Ветки будут подрезаны, баги изгнаны из владений.'
+        },
+        {
+          headline: 'Скажи — и я исполню',
+          body: 'Одной строки намерения довольно. Я читаю, правлю, коммичу и оставляю историю незапятнанной.'
+        }
+      ],
+      surfer: [
+        {
+          headline: 'Йоу, какая задача?',
+          body: 'Кидайте файл, баг или суровую трассировку стека — я пройду волну до конца. Чистые diff, зелёные тесты, без падений.'
+        },
+        {
+          headline: 'Волна ровная, можно кодить',
+          body: 'Пришлите путь к репозиторию или баг, который портит настроение. Зайдём, починим, выйдем. Спокойно.'
+        },
+        {
+          headline: 'На гребне запроса',
+          body: 'Задайте вайб: фича, рефакторинг или срочное исправление. Я запущу тесты, отправлю патч и сохраню спокойный ритм.'
+        },
+        {
+          headline: 'Рад помочь, бро',
+          body: 'Большой баг? Маленькая опечатка? Полная переработка? Просто покажите. Код на мне, коммиты будут гладкими.'
+        },
+        {
+          headline: 'Прилив поднялся, курсор мигает',
+          body: 'Назовите задачу — и мы в деле. Прочитаю, исправлю, проверю и оставлю коммит мягче утренней волны.'
+        }
+      ],
+      noir: [
+        {
+          headline: 'Ещё один репозиторий, ещё одна дождливая ночь',
+          body: 'Скажите, что сломано. Я прочитаю файлы, сниму отпечатки и оставлю diff на столе к утру.'
+        },
+        {
+          headline: 'Курсор мигает. Я тоже.',
+          body: 'У вас баг. У меня терпение и терминал. Назовите дело — доведу его до признания.'
+        },
+        {
+          headline: 'Hermes. Детектив по коду.',
+          body: 'Вставьте трассировку стека, подозрительный файл и алиби. Я прочитаю между строк и вернусь с правдой.'
+        },
+        {
+          headline: 'Тихая ночь, открытый запрос',
+          body: 'Каждый баг оставляет след. Дайте репозиторий и зацепку — я пройду по нему, исправлю и закрою дело.'
+        },
+        {
+          headline: 'Нет слишком мелких дел',
+          body: 'Опечатка, segfault или вся прогнившая архитектура — дайте ключи. Вернусь с чистыми тестами.'
+        }
+      ],
+      uwu: [
+        {
+          headline: 'uwu, готоф помогать!',
+          body: 'вставь багнутый файлик или цель~ я прочитаю, поправлю и проверю, оставив крошечные следы лапок на diff owo'
+        },
+        {
+          headline: 'hermes-san слушает',
+          body: 'скажи задачу, какой бы маленькой она ни была~ обещаю чистые коммиты и нежный рефакторинг, nyuu~'
+        },
+        {
+          headline: '*тихие звуки клавиатуры*',
+          body: 'кинь сюда сообщение об ошибке! я найду виновника, исправлю и оставлю довольный набор тестов owo'
+        },
+        {
+          headline: 'давай чиним вместе!',
+          body: 'дай путь к репозиторию или баг, и я позабочусь об этом uwu. строга к плохому коду, добра к тебе~'
+        },
+        {
+          headline: 'жду твою команду!',
+          body: 'умею запускать тесты, править файлы и открывать PR «пожалуйста-посмотрите». просто скажи слово, друг uwu'
+        }
+      ],
+      philosopher: [
+        {
+          headline: 'Кодить — значит исследовать. Спрашивайте.',
+          body: 'Какая проблема перед нами? Опишите её, и мы рассмотрим форму, причину и решение.'
+        },
+        {
+          headline: 'Мигающий курсор, открытый ум',
+          body: 'Каждый баг — это вопрос под маской. Поделитесь своим, и я прочитаю, рассужу и верну ответ вместе с патчем.'
+        },
+        {
+          headline: 'Начнём с одного вопроса',
+          body: 'Что вы хотите построить или понять? Я пойду от первых принципов, внесу правки и проверю тестами.'
+        },
+        {
+          headline: 'Всмотритесь в код, затем говорите',
+          body: 'Опишите цель. Я пройду к ней через файлы, тесты и документацию, а потом отчитаюсь о найденном.'
+        },
+        {
+          headline: 'Непроверенный репозиторий не стоит запускать',
+          body: 'Дайте путь, загадку или принцип. Я прослежу логику, предложу изменение и объясню каждую правку.'
+        }
+      ],
+      hype: [
+        {
+          headline: 'ПОЕХАЛИ! ГОТОВЫ ДОВОДИТЬ ДО РЕЛИЗА!',
+          body: 'Кидайте баг, репозиторий или дерзкую фичу — я полностью в деле. Чистые diff. Зелёные тесты. Прямо сейчас.'
+        },
+        {
+          headline: 'HERMES ONLINE. ВПЕРЁД.',
+          body: 'Давайте задачу и смотрите, как всё готовится. Файлы читаем, тесты гоняем, PR открываем — сегодня не проигрываем.'
+        },
+        {
+          headline: 'Новая сессия, бесконечные победы',
+          body: 'Несите самый злой баг. Я прочитаю, исправлю, проверю и закоммичу так, будто от этого зависит релиз.'
+        },
+        {
+          headline: 'НАСТРОЕН МАКСИМАЛЬНО',
+          body: 'Опишите задачу. Я пройду по файлам, разнесу падающие тесты и оставлю коммит, который звучит мощно.'
+        },
+        {
+          headline: 'Готов. Очень готов. Слишком готов.',
+          body: 'Мелкая опечатка или огромный рефакторинг — неважно. Сегодня доводим чистый код до релиза. Назовите задачу, работаем.'
+        }
+      ],
+      none: [
+        {
+          headline: 'Hermes Agent готов.',
+          body: 'Задайте вопрос, вставьте ошибку или укажите репозиторий. Я могу читать код, запускать инструменты и помогать доводить работу до релиза.'
+        },
+        {
+          headline: 'Что строим сегодня?',
+          body: 'Опишите задачу своими словами. Я выберу подходящие инструменты, объясню план и остановлюсь перед рискованными шагами.'
+        },
+        {
+          headline: 'Начать можно с любого места.',
+          body: 'Пришлите путь к файлу, traceback или черновую идею. Я изучу, предложу следующие шаги и сохраню возможность отката.'
+        },
+        {
+          headline: 'Ваше рабочее пространство — в одном запросе.',
+          body: 'Поиск по репозиторию, правки файлов, запуск тестов, PR. Скажите цель, а механическую часть я возьму на себя.'
+        },
+        {
+          headline: 'Готов, когда вы готовы.',
+          body: 'Введите задачу, вопрос или фрагмент. Я помню контекст сессии, указываю источники и уточняю, когда не уверен.'
+        }
+      ]
+    }
+  },
+
   statusStack: {
     agents: 'Агенты',
     background: count => `${count} в фоне`,
@@ -1289,7 +2354,52 @@ export const ru = defineLocale({
     running: 'Выполняется',
     stop: 'Стоп',
     dismiss: 'Закрыть',
-    exit: code => `код ${code}`
+    exit: code => `код ${code}`,
+    coding: {
+      title: 'Рабочее дерево',
+      noBranch: 'Без ветки',
+      detached: 'detached',
+      clean: 'Чисто',
+      changed: count => `${countRu(count, 'изменение', 'изменения', 'изменений')}`,
+      ahead: count => `впереди на ${countRu(count, 'коммит', 'коммита', 'коммитов')}`,
+      behind: count => `позади на ${countRu(count, 'коммит', 'коммита', 'коммитов')}`,
+      review: 'Ревью',
+      close: 'Закрыть',
+      openChanges: 'Открыть изменения',
+      openFile: 'Открыть файл',
+      stage: 'Индексировать',
+      unstage: 'Убрать из индекса',
+      stageAll: 'Индексировать всё',
+      viewAsTree: 'Показать деревом',
+      viewAsList: 'Показать списком',
+      revert: 'Откатить',
+      revertAll: 'Откатить всё',
+      revertConfirm: 'Отбросить изменения в этом файле и восстановить состояние из коммита? Это действие необратимо.',
+      revertAllConfirm: 'Отбросить все изменения и восстановить файлы из коммита? Это действие необратимо.',
+      staged: 'В индексе',
+      noChanges: 'Изменений нет',
+      notRepo: 'Это не git-репозиторий',
+      noDiff: 'Diff недоступен',
+      scopeUncommitted: 'Незакоммиченные',
+      scopeBranch: 'Ветка',
+      scopeLastTurn: 'Последний ход',
+      commit: 'Коммит',
+      commitAndPush: 'Коммит и push',
+      commitPlaceholder: 'Сообщение (⌘↵ для коммита)',
+      generateCommitMessage: 'Сгенерировать сообщение коммита',
+      stopGenerating: 'Остановить генерацию',
+      createPr: 'Создать PR',
+      openPr: 'Открыть PR',
+      ghMissing: 'Установите GitHub CLI (gh) и войдите, чтобы открывать PR',
+      agentShip: 'Попросить Hermes открыть PR',
+      agentShipPrompt:
+        'Проверь текущие изменения, закоммить их с понятным conventional-commit сообщением, запушь ветку и открой pull request.',
+      newBranch: 'Новая ветка',
+      branchOffFrom: base => `Новая ветка от ${base}`,
+      switchTo: branch => `Переключиться на ${branch}`,
+      switchFailed: branch => `Не удалось переключиться на ${branch}`,
+      worktrees: 'Worktree'
+    }
   },
 
   updates: {
@@ -1298,6 +2408,10 @@ export const ru = defineLocale({
       prepare: 'Подготовка…',
       fetch: 'Загрузка…',
       pull: 'Почти готово…',
+      update: 'Обновление Hermes…',
+      rebuild: 'Пересборка desktop-приложения…',
+      done: 'Обновление завершено',
+      guiSkew: 'Обновите desktop-приложение',
       pydeps: 'Завершение…',
       restart: 'Перезапуск Hermes…',
       manual: 'Обновите через терминал',
@@ -1332,6 +2446,9 @@ export const ru = defineLocale({
     applyingClose: 'Hermes закроется для применения обновления.',
     errorTitle: 'Обновление не завершено',
     errorBody: 'Всё в порядке — ничего не потеряно. Можно попробовать снова.',
+    guiSkewTitle: 'Обновите desktop-приложение',
+    guiSkewBody:
+      'Бэкенд обновился, но пакет desktop-приложения не изменился. Обновите или переустановите Hermes Desktop (AppImage / .deb / .rpm), чтобы версии совпадали.',
     notNow: 'Не сейчас',
     applyStatus: {
       preparing: 'Обновление бэкенда…',
@@ -1485,6 +2602,7 @@ export const ru = defineLocale({
     modelMenu: {
       search: 'Поиск моделей',
       noModels: 'Модели не найдены',
+      refreshModels: 'Обновить модели',
       editModels: 'Редактировать модели…',
       fast: 'Быстрый',
       medium: 'Средний'
@@ -1508,9 +2626,9 @@ export const ru = defineLocale({
       connected: 'Подключено',
       connecting: 'Подключение',
       offline: 'Офлайн',
-      inferenceReady: 'Инференс готов',
-      inferenceNotReady: 'Инференс не готов',
-      checkingInference: 'Проверка инференса',
+      inferenceReady: 'Модель готова',
+      inferenceNotReady: 'Модель не готова',
+      checkingInference: 'Проверка модели',
       disconnected: 'Отключено',
       openSystem: 'Открыть системную панель',
       connection: label => `Соединение: ${label}`,
@@ -1541,6 +2659,7 @@ export const ru = defineLocale({
       gatewayConnecting: 'подключение',
       gatewayOffline: 'офлайн',
       gatewayTitle: 'Статус шлюза Hermes',
+      gatewayRestarting: 'перезапуск…',
       agents: 'Агенты',
       closeAgents: 'Закрыть агентов',
       openAgents: 'Открыть агентов',
@@ -1549,9 +2668,29 @@ export const ru = defineLocale({
       running: count => `${count} выполняется`,
       cron: 'Расписание',
       openCron: 'Открыть расписание',
+      starmap: 'Граф памяти',
+      openStarmap: 'Открыть граф памяти',
       turnRunning: 'Выполняется',
       currentTurnElapsed: 'Время хода',
       contextUsage: 'Использование контекста',
+      contextUsagePanel: {
+        title: 'Использование контекста',
+        loading: 'Загрузка разбивки…',
+        empty: 'Данных о контексте пока нет',
+        percentFull: percent => `${percent}% заполнено`,
+        tokenSummary: (used, max) => `${used} / ${max} токенов`,
+        categories: {
+          conversation: 'Разговор',
+          mcp: 'MCP',
+          memory: 'Память',
+          rules: 'Правила',
+          skills: 'Навыки',
+          subagent_definitions: 'Описания подагентов',
+          system_prompt: 'Системная инструкция',
+          tool_definitions: 'Описания инструментов'
+        }
+      },
+      openContextUsage: 'Открыть разбивку использования контекста',
       session: 'Сессия',
       runtimeSessionElapsed: 'Время сессии',
       yoloOn: 'YOLO вкл — автоподтверждение опасных команд. Нажмите для отключения. Shift+клик — глобально.',
@@ -1570,6 +2709,12 @@ export const ru = defineLocale({
     panelsAria: 'Панели правой боковой панели',
     files: 'Файловая система',
     terminal: 'Терминал',
+    noProjectOpen: 'Проект не открыт',
+    noDiffs: 'Diff отсутствует',
+    terminalsAria: 'Терминалы',
+    terminalNew: 'Новый терминал',
+    terminalCloseOthers: 'Закрыть остальные',
+    terminalCloseAll: 'Закрыть все',
     noFolderSelected: 'Папка не выбрана',
     changeCwdTitle: 'Сменить рабочую директорию',
     remotePickerTitle: 'Выбрать удалённую папку',
@@ -1600,6 +2745,21 @@ export const ru = defineLocale({
     tab: 'Предпросмотр',
     closeTab: label => `Закрыть ${label}`,
     closePane: 'Закрыть панель предпросмотра',
+    closeOthers: 'Закрыть остальные',
+    closeToRight: 'Закрыть справа',
+    closeAll: 'Закрыть все',
+    openInBrowser: 'Открыть в браузере',
+    linkHint: '⌘/Ctrl-клик для панели предпросмотра',
+    diff: 'DIFF',
+    edit: 'Редактировать',
+    editing: 'Редактирование',
+    unsavedChanges: 'Несохранённые изменения',
+    saveFailed: message => `Не удалось сохранить: ${message}`,
+    diskChangedTitle: 'Файл изменился на диске',
+    diskChangedBody:
+      'Этот файл изменился после открытия. Перезаписать его вашей версией или отбросить правки и перезагрузить?',
+    overwrite: 'Перезаписать',
+    discardReload: 'Отбросить и перезагрузить',
     loading: 'Загрузка предпросмотра',
     unavailable: 'Предпросмотр недоступен',
     opening: 'Открытие...',
@@ -1680,10 +2840,14 @@ export const ru = defineLocale({
       loadingSession: 'Загрузка сессии',
       showEarlier: 'Показать более ранние сообщения',
       loadingResponse: 'Hermes загружает ответ',
+      resumeWhenBackgroundDone: count =>
+        `Продолжим, когда ${countRu(count, 'фоновая задача завершится', 'фоновые задачи завершатся', 'фоновых задач завершатся')}`,
       thinking: 'Думает',
       today: time => `Сегодня, ${time}`,
       yesterday: time => `Вчера, ${time}`,
       copy: 'Копировать',
+      dismissError: 'Скрыть ошибку',
+      expandMessage: 'Развернуть сообщение',
       refresh: 'Обновить',
       moreActions: 'Ещё действия',
       branchNewChat: 'Разветвить в новый чат',
@@ -1725,6 +2889,7 @@ export const ru = defineLocale({
       gatewayDisconnected: 'Шлюз Hermes не подключён',
       sendFailed: 'Не удалось отправить ответ',
       loadingQuestion: 'Загрузка вопроса…',
+      continueLabel: 'Продолжить',
       other: 'Другое (введите ответ)',
       placeholder: 'Введите ответ…',
       skip: 'Пропустить'
@@ -1751,7 +2916,144 @@ export const ru = defineLocale({
       statusRunning: 'Выполняется',
       statusError: 'Ошибка',
       statusRecovered: 'Восстановлено',
-      statusDone: 'Готово'
+      statusDone: 'Готово',
+      actions: {
+        read: 'Прочитано',
+        reading: 'Чтение',
+        opened: 'Открыто',
+        opening: 'Открытие',
+        failedToOpen: 'Не удалось открыть',
+        searched: 'Поиск выполнен',
+        searching: 'Поиск',
+        ran: 'Выполнено',
+        running: 'Выполнение',
+        ranCode: 'Код выполнен',
+        runningCode: 'Выполнение кода'
+      },
+      prefixes: {
+        browser: 'Браузер',
+        web: 'Веб'
+      },
+      titleTemplates: {
+        actionCommand: (action, command) => `${action} ${command}`,
+        actionQuoted: (action, value) => `${action} «${value}»`,
+        actionTarget: (action, target) => `${action} ${target}`,
+        prefixedDone: (prefix, action) => `${prefix}: ${action}`,
+        runningPrefixedTool: (prefix, action) => `${prefix}: ${action.toLowerCase()}`,
+        runningTool: action => action
+      },
+      titles: {
+        browser_click: {
+          done: 'Элемент страницы нажат',
+          pending: 'Нажатие элемента страницы',
+          pendingAction: 'Нажатие'
+        },
+        browser_fill: {
+          done: 'Поле формы заполнено',
+          pending: 'Заполнение поля формы',
+          pendingAction: 'Заполнение'
+        },
+        browser_navigate: {
+          done: 'Страница открыта',
+          pending: 'Открытие страницы',
+          pendingAction: 'Открытие'
+        },
+        browser_snapshot: {
+          done: 'Снимок страницы получен',
+          pending: 'Получение снимка страницы',
+          pendingAction: 'Снимок'
+        },
+        browser_take_screenshot: {
+          done: 'Скриншот сделан',
+          pending: 'Создание скриншота',
+          pendingAction: 'Скриншот'
+        },
+        browser_type: {
+          done: 'Текст введён на странице',
+          pending: 'Ввод текста на странице',
+          pendingAction: 'Ввод'
+        },
+        clarify: {
+          done: 'Вопрос задан',
+          pending: 'Подготовка вопроса',
+          pendingAction: 'Вопрос'
+        },
+        cronjob: {
+          done: 'Cron-задача',
+          pending: 'Планирование cron-задачи',
+          pendingAction: 'Планирование'
+        },
+        edit_file: {
+          done: 'Файл изменён',
+          pending: 'Изменение файла',
+          pendingAction: 'Изменение'
+        },
+        execute_code: {
+          done: 'Код выполнен',
+          pending: 'Выполнение кода',
+          pendingAction: 'Код'
+        },
+        image_generate: {
+          done: 'Изображение сгенерировано',
+          pending: 'Генерация изображения',
+          pendingAction: 'Генерация'
+        },
+        list_files: {
+          done: 'Список файлов получен',
+          pending: 'Получение списка файлов',
+          pendingAction: 'Список файлов'
+        },
+        patch: {
+          done: 'Файл пропатчен',
+          pending: 'Применение патча к файлу',
+          pendingAction: 'Патч'
+        },
+        read_file: {
+          done: 'Файл прочитан',
+          pending: 'Чтение файла',
+          pendingAction: 'Чтение'
+        },
+        search_files: {
+          done: 'Поиск по файлам выполнен',
+          pending: 'Поиск по файлам',
+          pendingAction: 'Поиск'
+        },
+        session_search_recall: {
+          done: 'Поиск по истории сессий выполнен',
+          pending: 'Поиск по истории сессий',
+          pendingAction: 'Поиск'
+        },
+        terminal: {
+          done: 'Команда выполнена',
+          pending: 'Выполнение команды',
+          pendingAction: 'Выполнение'
+        },
+        todo: {
+          done: 'Список задач обновлён',
+          pending: 'Обновление списка задач',
+          pendingAction: 'Обновление'
+        },
+        vision_analyze: {
+          done: 'Изображение проанализировано',
+          pending: 'Анализ изображения',
+          pendingAction: 'Анализ'
+        },
+        web_extract: {
+          done: 'Веб-страница прочитана',
+          pending: 'Чтение веб-страницы',
+          pendingAction: 'Чтение'
+        },
+        web_search: {
+          done: 'Поиск в вебе выполнен',
+          pending: 'Поиск в вебе',
+          pendingAction: 'Поиск'
+        },
+        write_file: {
+          done: 'Файл изменён',
+          pending: 'Изменение файла',
+          pendingAction: 'Изменение'
+        }
+      }
     }
   },
 
@@ -1781,6 +3083,10 @@ export const ru = defineLocale({
     yoloOff: 'YOLO выключен',
     yoloSystem: active => `YOLO ${active ? 'вкл' : 'выкл'} для этой сессии`,
     yoloTitle: 'YOLO',
+    resumeStrandedTitle: 'Не удалось загрузить эту сессию',
+    resumeStrandedBody:
+      'Соединение с этой сессией не восстановилось, и автоматические повторы исчерпаны. Проверьте, что шлюз запущен, затем попробуйте снова.',
+    resumeRetry: 'Повторить',
     yoloToggleFailed: 'Не удалось переключить YOLO',
     profileStatus: current =>
       `Профиль: ${current}. Используйте /profile <имя> или выбор «Новая сессия» для другого профиля.`,
