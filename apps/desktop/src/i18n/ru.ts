@@ -813,12 +813,30 @@ export const ru = defineLocale({
       reasoningOff: 'Выкл',
       defaultsFailed: 'Не удалось сохранить параметры модели по умолчанию',
       auxiliaryTitle: 'Вспомогательные модели',
-      resetAllToMain: 'Сбросить все на основную',
+      resetAllToMain: 'Сбросить все задачи к основной',
       auxiliaryDesc: 'Вспомогательные задачи по умолчанию используют основную модель. Назначьте отдельную модель для любой задачи.',
+      staleAuxWarning: (count, names, provider) =>
+        `${countRu(count, 'вспомогательная задача', 'вспомогательные задачи', 'вспомогательных задач')} (${names}) всё ещё ${pluralRu(count, 'работает', 'работают', 'работают')} на ${provider}, а не на основной модели.`,
+      otherProviders: 'других провайдерах',
       setToMain: 'Как основная',
       change: 'Изменить',
       autoUseMain: 'авто · основная модель',
       providerDefault: '(по умолчанию провайдера)',
+      moa: {
+        title: 'Mixture of Agents',
+        description:
+          'Настройте именованные пресеты, которые будут отображаться как модели у провайдера Mixture of Agents. Итоговый ответ формирует агрегатор.',
+        presetPlaceholder: 'Пресет',
+        setDefault: 'Сделать по умолчанию',
+        deletePreset: 'Удалить',
+        newPresetPlaceholder: 'новый пресет',
+        addPreset: 'Добавить пресет',
+        defaultLabel: 'По умолчанию:',
+        referenceTitle: index => `Модель-участник ${index}`,
+        removeReference: 'Удалить',
+        addReferenceModel: 'Добавить модель-участник',
+        aggregatorTitle: 'Агрегатор'
+      },
       tasks: {
         vision: { label: 'Зрение', hint: 'Анализ изображений' },
         web_extract: { label: 'Веб-извлечение', hint: 'Резюмирование страниц' },
@@ -1329,6 +1347,27 @@ export const ru = defineLocale({
         label: 'Разрешённые Telegram ID',
         help: 'Рекомендуется. Числовые ID через запятую из @userinfobot. Без этого любой может написать вашему боту.'
       },
+      TELEGRAM_ALLOW_ALL_USERS: {
+        label: 'Разрешить всех пользователей',
+        help: 'Только для разработки. Если указать true, любой пользователь Telegram сможет запускать бота.',
+        placeholder: 'true или false'
+      },
+      TELEGRAM_HOME_CHANNEL: {
+        label: 'ID домашнего канала',
+        help: 'Чат или канал по умолчанию для доставки cron-задач и уведомлений.'
+      },
+      TELEGRAM_HOME_CHANNEL_NAME: {
+        label: 'Название домашнего канала',
+        help: 'Отображаемое имя домашнего канала в журналах и статусе.'
+      },
+      TELEGRAM_HOME_CHANNEL_THREAD_ID: {
+        label: 'ID темы домашнего канала',
+        help: 'Необязательно. ID темы Telegram для сообщений домашнего канала.'
+      },
+      TELEGRAM_CRON_THREAD_ID: {
+        label: 'ID темы для cron',
+        help: 'Необязательно. Тема Telegram, куда будут доставляться cron-задачи.'
+      },
       TELEGRAM_PROXY: { label: 'URL прокси', help: 'Нужен только если Telegram заблокирован в вашей сети.' },
       DISCORD_BOT_TOKEN: {
         label: 'Токен бота',
@@ -1422,7 +1461,43 @@ export const ru = defineLocale({
         help: 'Рекомендуется. Номера телефонов или WhatsApp ID через запятую.'
       }
     },
-    platformIntro: {}
+    platformIntro: {
+      telegram:
+        'В Telegram напишите @BotFather, выполните /newbot и скопируйте выданный токен. Затем получите свой числовой ID у @userinfobot.',
+      discord:
+        'Откройте Discord Developer Portal, создайте приложение, добавьте бота и скопируйте его токен. Затем пригласите бота на сервер с нужными разрешениями.',
+      slack:
+        'Создайте приложение Slack, включите Socket Mode, установите приложение в рабочую область, затем скопируйте токен бота и app-level token.',
+      mattermost:
+        'На сервере Mattermost создайте аккаунт бота или personal access token, затем вставьте здесь URL сервера и токен.',
+      matrix:
+        'Войдите на homeserver под аккаунтом бота, затем скопируйте access token, user ID и URL homeserver.',
+      signal:
+        'Запустите signal-cli REST bridge в доступном месте, затем укажите в Hermes его URL и зарегистрированный номер телефона.',
+      whatsapp:
+        'Запустите WhatsApp bridge, который поставляется с Hermes, при первом запуске отсканируйте QR-код и включите платформу.',
+      bluebubbles:
+        'Запустите BlueBubbles Server на Mac с iMessage, откройте доступ к его API и укажите в Hermes URL вместе с паролем сервера.',
+      homeassistant:
+        'В Home Assistant откройте профиль и создайте long-lived access token. Вставьте его здесь вместе с URL Home Assistant.',
+      email:
+        'Используйте отдельный почтовый ящик. Для Gmail или Workspace создайте app password и используйте imap.gmail.com / smtp.gmail.com.',
+      sms: 'Получите Twilio Account SID и Auth Token в консоли Twilio, а также номер телефона, с которого можно отправлять SMS.',
+      dingtalk: 'Создайте приложение DingTalk в консоли разработчика, затем скопируйте сюда Client ID (App key) и Client Secret.',
+      feishu:
+        'Создайте приложение Feishu / Lark, включите бота и скопируйте App ID, App secret и ключи шифрования событий.',
+      wecom:
+        'Добавьте группового робота в WeCom и скопируйте его webhook key как WECOM_BOT_ID. Это режим только для отправки; для двусторонней связи используйте вариант WeCom (app).',
+      wecom_callback:
+        'Настройте self-built app в WeCom, откройте callback URL и укажите corp ID, secret, agent ID и AES key.',
+      weixin:
+        'Запустите `hermes gateway setup`, выберите Weixin, затем отсканируйте и подтвердите QR-код личным аккаунтом WeChat. Hermes подключится через Tencent iLink Bot API и сохранит учётные данные.',
+      qqbot: 'Зарегистрируйте приложение на QQ Open Platform (q.qq.com) и скопируйте App ID и Client Secret.',
+      api_server:
+        'Откройте Hermes как OpenAI-совместимый API. Задайте auth key, затем укажите Open WebUI / LobeChat / другой клиент на host:port.',
+      webhook:
+        'Запустите HTTP-сервер, куда другие инструменты (GitHub, GitLab, собственные приложения) смогут отправлять POST-запросы. Используйте secret для проверки подписей.'
+    }
   },
 
   profiles: {

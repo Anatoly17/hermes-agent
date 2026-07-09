@@ -665,10 +665,28 @@ export const en: Translations = {
       auxiliaryTitle: 'Auxiliary models',
       resetAllToMain: 'Reset all to main',
       auxiliaryDesc: 'Helper tasks run on the main model by default. Assign a dedicated model to any task to override.',
+      staleAuxWarning: (count, names, provider) =>
+        `${count} auxiliary task${count === 1 ? '' : 's'} (${names}) still run on ${provider}, not your main model.`,
+      otherProviders: 'other providers',
       setToMain: 'Set to main',
       change: 'Change',
       autoUseMain: 'auto · use main model',
       providerDefault: '(provider default)',
+      moa: {
+        title: 'Mixture of Agents',
+        description:
+          'Configure named presets that appear as models under the Mixture of Agents provider. The aggregator is the acting model.',
+        presetPlaceholder: 'Preset',
+        setDefault: 'Set default',
+        deletePreset: 'Delete',
+        newPresetPlaceholder: 'new preset',
+        addPreset: 'Add preset',
+        defaultLabel: 'Default:',
+        referenceTitle: index => `Reference ${index}`,
+        removeReference: 'Remove',
+        addReferenceModel: 'Add reference model',
+        aggregatorTitle: 'Aggregator'
+      },
       tasks: {
         vision: { label: 'Vision', hint: 'Image analysis' },
         web_extract: { label: 'Web extract', hint: 'Page summarization' },

@@ -579,10 +579,26 @@ export interface Translations {
       auxiliaryTitle: string
       resetAllToMain: string
       auxiliaryDesc: string
+      staleAuxWarning: (count: number, names: string, provider: string) => string
+      otherProviders: string
       setToMain: string
       change: string
       autoUseMain: string
       providerDefault: string
+      moa: {
+        title: string
+        description: string
+        presetPlaceholder: string
+        setDefault: string
+        deletePreset: string
+        newPresetPlaceholder: string
+        addPreset: string
+        defaultLabel: string
+        referenceTitle: (index: number) => string
+        removeReference: string
+        addReferenceModel: string
+        aggregatorTitle: string
+      }
       tasks: Record<string, AuxTaskCopy>
     }
     providers: {
