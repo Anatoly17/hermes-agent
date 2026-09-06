@@ -459,9 +459,8 @@ gateway:
     warn_passthrough:            "⚠️ {error}"
 
 # Slash-command descriptions surfaced by gateway `/help` and the Telegram
-# BotCommand menu.  Keys are canonical command names; a missing key falls
-# back to the English description carried in the command registry, so
-# partially translated catalogs degrade gracefully.
+# BotCommand menu. Keys are canonical command names. Blank values mean
+# untranslated and fall back to COMMAND_REGISTRY's current English text.
 command_descriptions:
   start:         ""
   new:           ""
@@ -476,6 +475,7 @@ command_descriptions:
   title:         ""
   handoff:       ""
   branch:        ""
+  worktree:      ""
   compress:      ""
   rollback:      ""
   snapshot:      ""
@@ -485,7 +485,8 @@ command_descriptions:
   pause:         ""
   approve:       ""
   deny:          ""
-  background:    ""
+  bg:            ""
+  btw:           ""
   agents:        ""
   journey:       ""
   queue:         ""
@@ -493,7 +494,9 @@ command_descriptions:
   goal:          ""
   heartbeat:     ""
   refine:        ""
+  review:        ""
   loop:          ""
+  plan:          ""
   moa:           ""
   subgoal:       ""
   status:        ""
@@ -545,6 +548,7 @@ command_descriptions:
   plugins:       ""
   commands:      ""
   help:          ""
+  palette:       ""
   restart:       ""
   usage:         ""
   subscription:  ""
