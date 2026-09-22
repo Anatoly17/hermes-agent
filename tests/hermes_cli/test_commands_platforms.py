@@ -23,7 +23,7 @@ class TestTelegramLocalizedDescriptions:
         descriptions = dict(platforms.telegram_bot_commands(include_plugins=False))
         for cmd in platforms._gateway_available_commands():
             telegram_name = platforms._sanitize_telegram_name(cmd.name)
-            assert descriptions[telegram_name] == cmd.description
+            assert descriptions[telegram_name] == platforms._normalize_telegram_desc(cmd.description)
 
 
 class TestTelegramDescriptionClamp:

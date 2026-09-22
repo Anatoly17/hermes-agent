@@ -563,6 +563,7 @@ command_descriptions:
   restart:       ""
   usage:         ""
   subscription:  ""
+  login:         ""
   topup:         ""
   insights:      ""
   platforms:     ""
